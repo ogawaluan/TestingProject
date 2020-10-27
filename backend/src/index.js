@@ -1,21 +1,13 @@
 const express = require('express');
 const { uuid, isUuid } = require('uuidv4');
+const cors = require('cors');
 
 const app = express();
 
+app.use(cors());
 app.use(express.json())
 
 const projects = [];
-
-function logRequests(request, response, next) {
-  const { method, url } = request;
-
-  const logLabel = `[${method.toUpperCase()}] ${url}`;
-  
-  console.log(logLabel);
-
-  return next();
-}
 
 function validateProjectId(request, response, next) {
   const { id } = request.params;
@@ -27,15 +19,14 @@ function validateProjectId(request, response, next) {
   return next();
 }
 
-app.use(logRequests);
 app.use('/projects/:id', validateProjectId)
 
 app.get('/projects', (request, response) => {
-  const { title } = request.query;
+  // const { title } = request.query;
 
-  const results = title ? projects.filter(project => project.title.includes(title)) : projects;
+  // const results = title ? projects.filter(project => project.title.includes(title)) : projects;
   
-  return response.json(results);
+  return response.json(projects);
 });
 
 app.post('/projects', (request, response) => {
