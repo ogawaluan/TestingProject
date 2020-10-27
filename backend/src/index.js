@@ -71,7 +71,7 @@ app.delete('/projects/:id', (request, response) => {
   
   projects.splice(projectIndex, 1);
 
-  return response.status(204).send()
+  return response.status(204).send()  
 })
 
 app.listen(3333, () => {
